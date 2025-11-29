@@ -314,20 +314,27 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
         
-        // TODO: Replace with your Firebase config
         const firebaseConfig = {
             apiKey: "AIzaSyB7_QOFBHoIt711BmeuspL276-A5Mn_Pts",
-  authDomain: "friednlyfire.firebaseapp.com",
-  databaseURL: "https://friednlyfire-default-rtdb.firebaseio.com",
-  projectId: "friednlyfire",
-  storageBucket: "friednlyfire.firebasestorage.app",
-  messagingSenderId: "414150791190",
-  appId: "1:414150791190:web:cf3d9ba5a4037552ede537",
-  measurementId: "G-R2GN8EXZQ9"
+            authDomain: "friednlyfire.firebaseapp.com",
+            databaseURL: "https://friednlyfire-default-rtdb.firebaseio.com",
+            projectId: "friednlyfire",
+            storageBucket: "friednlyfire.firebasestorage.app",
+            messagingSenderId: "414150791190",
+            appId: "1:414150791190:web:cf3d9ba5a4037552ede537",
+            measurementId: "G-R2GN8EXZQ9"
         };
         
-        window.firebaseApp = initializeApp(firebaseConfig);
-        window.database = getDatabase(window.firebaseApp);
+        console.log('🔥 Initializing Firebase...');
+        try {
+            window.firebaseApp = initializeApp(firebaseConfig);
+            window.database = getDatabase(window.firebaseApp);
+            console.log('✅ Firebase initialized successfully');
+            console.log('Database URL:', firebaseConfig.databaseURL);
+        } catch (error) {
+            console.error('❌ Firebase initialization failed:', error);
+            alert('Firebase initialization failed. Check console for details.');
+        }
     </script>
     <script src="topics.js"></script>
     <script type="module" src="multiplayer.js"></script>
