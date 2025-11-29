@@ -70,19 +70,9 @@ function initializeApp() {
         });
     }
     
-    // Multiplayer setup
+    // Multiplayer setup - Using onclick handler in HTML, so NO addEventListener here
     const createBtn = document.getElementById('create-game');
     const joinBtn = document.getElementById('join-game');
-    
-    if (createBtn) {
-        createBtn.addEventListener('click', () => {
-            console.log('🎮 Create Game button clicked!');
-            createGame();
-        });
-        console.log('✅ Create game button listener attached');
-    } else {
-        console.error('❌ Create game button not found!');
-    }
     
     if (joinBtn) {
         joinBtn.addEventListener('click', () => {
@@ -203,8 +193,13 @@ async function joinGame() {
 }
 
 function showLobby(gameCode) {
+    console.log('🏠 showLobby called with gameCode:', gameCode);
+    console.log('📍 Current screen before:', document.querySelector('.screen.active')?.id);
     showScreen('lobby-screen');
+    console.log('📍 Current screen after:', document.querySelector('.screen.active')?.id);
+    
     document.getElementById('lobby-game-code').textContent = gameCode;
+    console.log('✅ Lobby screen should now be visible');
     
     // Only show settings to host
     if (!window.multiplayerState.isHost) {
