@@ -693,10 +693,23 @@ function resetGame() {
 // ============ UTILITY FUNCTIONS ============
 
 function showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => {
+    console.log(`🎬 showScreen called for: ${screenId}`);
+    const allScreens = document.querySelectorAll('.screen');
+    console.log(`📺 Total screens found: ${allScreens.length}`);
+    
+    allScreens.forEach(screen => {
         screen.classList.remove('active');
+        console.log(`  ⚪ Removed active from: ${screen.id}`);
     });
-    document.getElementById(screenId)?.classList.add('active');
+    
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.add('active');
+        console.log(`  ✅ Added active to: ${screenId}`);
+        console.log(`  👁️ Display style: ${window.getComputedStyle(targetScreen).display}`);
+    } else {
+        console.error(`  ❌ Screen not found: ${screenId}`);
+    }
 }
 
 function showNotification(message) {
