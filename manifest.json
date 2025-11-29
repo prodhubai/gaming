@@ -1,0 +1,32 @@
+{
+  "name": "Friendly Fire - Roast Battle Game",
+  "short_name": "Friendly Fire",
+  "description": "Light roasts. High laughs. No hard feelings. A fun party game for friends!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ff6b35",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment", "social"],
+  "screenshots": [
+    {
+      "src": "screenshot.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
+}

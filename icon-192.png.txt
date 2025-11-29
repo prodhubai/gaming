@@ -1,0 +1,6 @@
+Note: Icon placeholder created. For production, replace with actual PNG icons:
+- icon-192.png (192x192 pixels)
+- icon-512.png (512x512 pixels)
+
+You can create these using a logo generator or design tool with the game's theme.
+Suggested design: Fire emoji 🔥 on gradient background (#ff6b35 to #f7931e)
