@@ -35,13 +35,13 @@
             <div class="home-container">
                 <h2>Choose Game Mode</h2>
                 <div class="mode-selection">
-                    <button id="multiplayer-mode" class="btn btn-primary mode-btn">
-                        🌐 Multiplayer Mode
-                        <span class="mode-description">Each player uses their own phone</span>
-                    </button>
                     <button id="single-device-mode" class="btn btn-primary mode-btn">
                         📱 Single Device Mode
                         <span class="mode-description">Pass & play on one device</span>
+                    </button>
+                    <button id="multiplayer-mode" class="btn btn-primary mode-btn">
+                        🌐 Multiplayer Mode
+                        <span class="mode-description">Each player uses their own phone</span>
                     </button>
                 </div>
             </div>
@@ -56,10 +56,6 @@
                     <div class="option-card">
                         <h3>🎮 Create New Game</h3>
                         <p>Start a new game and invite friends</p>
-                        <div class="form-group">
-                            <label for="host-name">Your Name:</label>
-                            <input type="text" id="host-name" placeholder="Enter your name" maxlength="20">
-                        </div>
                         <button id="create-game" class="btn btn-primary">Create Game</button>
                     </div>
                     
@@ -94,7 +90,7 @@
                         <span id="lobby-game-code">XXXX</span>
                         <button id="copy-code" class="btn-copy">📋 Copy</button>
                     </div>
-                    <button id="share-lobby-link" class="btn btn-secondary">📱 Share via WhatsApp</button>
+                    <button id="share-lobby-link" class="btn btn-secondary">📱 Share Link</button>
                 </div>
                 
                 <div class="players-waiting">
@@ -104,7 +100,7 @@
                     </div>
                 </div>
                 
-                <div class="lobby-settings" id="lobby-settings">
+                <div class="lobby-settings">
                     <div class="form-group">
                         <label for="lobby-rounds">Number of Rounds:</label>
                         <input type="number" id="lobby-rounds" min="1" max="10" value="5">
@@ -125,29 +121,10 @@
             </div>
         </div>
 
-        <!-- Waiting Screen (for multiplayer) -->
-        <div id="waiting-screen" class="screen">
-            <div class="waiting-container">
-                <h2>⏳ Waiting for Other Players...</h2>
-                <p class="waiting-message" id="waiting-message">Waiting for submissions...</p>
-                <div class="progress-info">
-                    <span id="submissions-count">0</span> / <span id="total-players">0</span> players ready
-                </div>
-                <div class="spinner"></div>
-            </div>
-        </div>
-
-        <!-- Setup Screen -->
+        <!-- Single Device Setup Screen -->
         <div id="setup-screen" class="screen">
             <div class="setup-container">
-                <!-- Install PWA Banner -->
-                <div id="install-banner" class="install-banner" style="display: none;">
-                    <p>📱 Install Friendly Fire as an app!</p>
-                    <button id="install-btn" class="btn-install">Install</button>
-                    <button id="dismiss-install" class="btn-dismiss">×</button>
-                </div>
-                
-                <h2>Game Setup</h2>
+                <h2>Single Device Setup</h2>
                 <div class="form-group">
                     <label for="player-count">Number of Players:</label>
                     <input type="number" id="player-count" min="3" max="10" value="4">
@@ -173,6 +150,18 @@
                 </div>
                 <button id="start-game" class="btn btn-primary">Start Game</button>
                 <button id="back-to-home-setup" class="btn btn-secondary">← Back</button>
+            </div>
+        </div>
+
+        <!-- Waiting Screen (for multiplayer) -->
+        <div id="waiting-screen" class="screen">
+            <div class="waiting-container">
+                <h2>⏳ Waiting for Other Players...</h2>
+                <p class="waiting-message" id="waiting-message">Waiting for submissions...</p>
+                <div class="progress-info">
+                    <span id="submissions-count">0</span> / <span id="total-players">0</span> players submitted
+                </div>
+                <div class="spinner"></div>
             </div>
         </div>
 
@@ -222,7 +211,7 @@
                     <!-- Dynamic player submission forms will be added here -->
                 </div>
                 
-                <button id="submit-all" class="btn btn-primary">Submit My Comment</button>
+                <button id="submit-all" class="btn btn-primary">Submit All Comments</button>
             </div>
         </div>
 
@@ -309,27 +298,8 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getDatabase } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-        
-        // TODO: Replace with your Firebase config
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        window.firebaseApp = initializeApp(firebaseConfig);
-        window.database = getDatabase(window.firebaseApp);
-    </script>
     <script src="topics.js"></script>
-    <script type="module" src="multiplayer.js"></script>
-    <script src="game-multiplayer.js"></script>
+    <script src="multiplayer.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
