@@ -28,9 +28,18 @@ function generatePlayerId() {
 
 // Create new multiplayer game
 export async function createMultiplayerGame(hostName) {
+    console.log('🔥 createMultiplayerGame called with:', hostName);
     const db = window.database;
+    
+    if (!db) {
+        console.error('❌ Database not initialized!');
+        throw new Error('Database not initialized');
+    }
+    
     const gameCode = generateGameCode();
     const playerId = generatePlayerId();
+    
+    console.log('📝 Generated gameCode:', gameCode, 'playerId:', playerId);
     
     const gameRef = ref(db, `games/${gameCode}`);
     

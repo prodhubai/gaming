@@ -34,21 +34,35 @@ const EMOJIS = [
 
 // Initialize game
 document.addEventListener('DOMContentLoaded', () => {
-    initializeApp();
+    // Wait a bit for Firebase and multiplayer.js to load
+    setTimeout(() => {
+        initializeApp();
+    }, 100);
 });
 
 function initializeApp() {
-    // Mode selection
-    document.getElementById('multiplayer-mode')?.addEventListener('click', () => {
-        gameState.mode = 'multiplayer';
-        showScreen('multiplayer-setup');
-    });
+    console.log('🎮 Initializing Friendly Fire...');
     
-    document.getElementById('single-device-mode')?.addEventListener('click', () => {
-        gameState.mode = 'single';
-        showScreen('setup-screen');
-        updatePlayerNameInputs();
-    });
+    // Mode selection
+    const multiplayerBtn = document.getElementById('multiplayer-mode');
+    const singleDeviceBtn = document.getElementById('single-device-mode');
+    
+    if (multiplayerBtn) {
+        multiplayerBtn.addEventListener('click', () => {
+            console.log('Multiplayer mode selected');
+            gameState.mode = 'multiplayer';
+            showScreen('multiplayer-setup');
+        });
+    }
+    
+    if (singleDeviceBtn) {
+        singleDeviceBtn.addEventListener('click', () => {
+            console.log('Single device mode selected');
+            gameState.mode = 'single';
+            showScreen('setup-screen');
+            updatePlayerNameInputs();
+        });
+    }
     
     // Multiplayer setup
     document.getElementById('create-game')?.addEventListener('click', createGame);
@@ -87,9 +101,19 @@ async function createGame() {
         return;
     }
     
+    console.log('Creating game for:', hostName);
+    
+    // Check if Firebase is ready
+    if (!window.database) {
+        alert('Firebase not initialized. Please refresh the page.');
+        console.error('Firebase database not available');
+        return;
+    }
+    
     try {
         const { gameCode, playerId } = await window.createMultiplayerGame(hostName);
         window.multiplayerState.isMultiplayer = true;
+        console.log('Game created:', gameCode);
         
         // Show lobby
         showLobby(gameCode);
@@ -111,9 +135,19 @@ async function joinGame() {
         return;
     }
     
+    console.log('Joining game:', gameCode, 'as', playerName);
+    
+    // Check if Firebase is ready
+    if (!window.database) {
+        alert('Firebase not initialized. Please refresh the page.');
+        console.error('Firebase database not available');
+        return;
+    }
+    
     try {
         await window.joinMultiplayerGame(gameCode, playerName);
         window.multiplayerState.isMultiplayer = true;
+        console.log('Joined game:', gameCode);
         
         // Show lobby
         showLobby(gameCode);
