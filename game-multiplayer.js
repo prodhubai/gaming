@@ -34,10 +34,15 @@ const EMOJIS = [
 
 // Initialize game
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait a bit for Firebase and multiplayer.js to load
+    console.log('🚀 DOM loaded, waiting for Firebase and multiplayer.js...');
+    // Wait for Firebase and multiplayer.js to load
     setTimeout(() => {
+        console.log('⏰ Timeout complete, initializing app...');
+        console.log('📊 window.database:', window.database ? 'Available' : 'Not available');
+        console.log('📊 window.createMultiplayerGame:', typeof window.createMultiplayerGame);
+        console.log('📊 window.joinMultiplayerGame:', typeof window.joinMultiplayerGame);
         initializeApp();
-    }, 100);
+    }, 500); // Increased timeout to ensure modules load
 });
 
 function initializeApp() {
@@ -114,7 +119,14 @@ function initializeApp() {
 
 // ============ MULTIPLAYER FUNCTIONS ============
 
+// Make createGame globally accessible for onclick handler
+window.createGameDirect = async function() {
+    console.log('🔥 createGameDirect called from onclick');
+    await createGame();
+};
+
 async function createGame() {
+    console.log('🎯 createGame function called');
     const hostName = document.getElementById('host-name').value.trim();
     if (!hostName) {
         alert('Please enter your name');
@@ -126,14 +138,23 @@ async function createGame() {
     // Check if Firebase is ready
     if (!window.database) {
         alert('Firebase not initialized. Please refresh the page.');
-        console.error('Firebase database not available');
+        console.error('❌ Firebase database not available');
         return;
     }
+    
+    // Check if multiplayer functions are loaded
+    if (typeof window.createMultiplayerGame !== 'function') {
+        alert('Multiplayer module not loaded. Please refresh the page.');
+        console.error('❌ window.createMultiplayerGame is not a function:', typeof window.createMultiplayerGame);
+        return;
+    }
+    
+    console.log('✅ All checks passed, creating multiplayer game...');
     
     try {
         const { gameCode, playerId } = await window.createMultiplayerGame(hostName);
         window.multiplayerState.isMultiplayer = true;
-        console.log('Game created:', gameCode);
+        console.log('✅ Game created:', gameCode);
         
         // Show lobby
         showLobby(gameCode);
@@ -142,6 +163,7 @@ async function createGame() {
         window.subscribeToGame(gameCode, handleGameUpdate);
         
     } catch (error) {
+        console.error('❌ Error creating game:', error);
         alert('Failed to create game: ' + error.message);
     }
 }
