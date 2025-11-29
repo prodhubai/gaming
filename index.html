@@ -326,15 +326,10 @@
         };
         
         console.log('🔥 Initializing Firebase...');
-        try {
-            window.firebaseApp = initializeApp(firebaseConfig);
-            window.database = getDatabase(window.firebaseApp);
-            console.log('✅ Firebase initialized successfully');
-            console.log('Database URL:', firebaseConfig.databaseURL);
-        } catch (error) {
-            console.error('❌ Firebase initialization failed:', error);
-            alert('Firebase initialization failed. Check console for details.');
-        }
+        window.firebaseApp = initializeApp(firebaseConfig);
+        window.database = getDatabase(window.firebaseApp);
+        console.log('✅ Firebase initialized');
+        console.log('✅ Database ready:', window.database ? 'Yes' : 'No');
     </script>
     <script src="topics.js"></script>
     <script type="module" src="multiplayer.js"></script>
