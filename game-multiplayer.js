@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initializeApp() {
     console.log('🎮 Initializing Friendly Fire...');
+    console.log('Multiplayer functions available:', typeof window.createMultiplayerGame);
     
     // Mode selection
     const multiplayerBtn = document.getElementById('multiplayer-mode');
@@ -65,8 +66,27 @@ function initializeApp() {
     }
     
     // Multiplayer setup
-    document.getElementById('create-game')?.addEventListener('click', createGame);
-    document.getElementById('join-game')?.addEventListener('click', joinGame);
+    const createBtn = document.getElementById('create-game');
+    const joinBtn = document.getElementById('join-game');
+    
+    if (createBtn) {
+        createBtn.addEventListener('click', () => {
+            console.log('🎮 Create Game button clicked!');
+            createGame();
+        });
+        console.log('✅ Create game button listener attached');
+    } else {
+        console.error('❌ Create game button not found!');
+    }
+    
+    if (joinBtn) {
+        joinBtn.addEventListener('click', () => {
+            console.log('🔗 Join Game button clicked!');
+            joinGame();
+        });
+        console.log('✅ Join game button listener attached');
+    }
+    
     document.getElementById('back-to-home')?.addEventListener('click', () => showScreen('home-screen'));
     
     // Lobby
